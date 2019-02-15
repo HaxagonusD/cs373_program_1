@@ -52,6 +52,7 @@ int main(int argc, char *argv[]){
 			State someState = State(stateName);
 			constructedMachine.start_states.push_back(&someState);
 		}
+		//do the same for the accept states
 		where = line.find("accept");
 		if(where != string::npos){
 			stringstream ss;
@@ -66,6 +67,20 @@ int main(int argc, char *argv[]){
 			//add the state to the STATEMACHINE
 			State someState = State(stateName);
 			constructedMachine.accept_states.push_back(&someState);
+		}
+		/*TODO:
+			Make a transition based on the line
+			Add transition to its respective state
+		*/
+		where = line.find("transition")
+		if(where != string::npos){
+			stringstream ss;
+			ss << line;
+			string temp = "";
+			int currentState;
+			int nextState;
+			char inputSymbol;
+			
 		}
     }
 
