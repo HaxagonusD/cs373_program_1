@@ -95,7 +95,7 @@ int main(int argc, char *argv[]){
 		}
     }
 
-
+//TODO: merge rpocess input branch with the master branch
 //There probably are some memory leaks before this point in the program but I can't get valgrind to run
 /*TODO
         Create a vector made up  vectors for every input in the input string - Because it's a vector I dont have to know the size of the list
