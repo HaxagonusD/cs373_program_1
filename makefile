@@ -9,6 +9,6 @@ statemachine:
 transition: Transition.cpp Transition.h
 	g++ -c Transition.cpp
 run: all
-	./run sample_1.txt
+	./run sample_2.txt 111110
 clean:
 	rm -r *.o *.h.gch run
