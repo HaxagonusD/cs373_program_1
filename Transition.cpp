@@ -1,6 +1,7 @@
 #include "Transition.h"
 
-Transition::Transition(char s, int n){
+Transition::Transition(int n, string s, int z){
     this->symbol = s;
-    this->name = n;
+    this->currentName = n;
+    this->nextName = z;
 }

@@ -1,10 +1,13 @@
 #ifndef TRANSITION_H
 #define TRANSITION_H
-
+#include <iostream>
+#include <string>
+using namespace std;
 class Transition{
 public:
-    Transition(char, int);
-    char symbol;
-    int name;
+    Transition(int, string, int);
+    string symbol;
+    int currentName;
+    int nextName;
 };
 #endif

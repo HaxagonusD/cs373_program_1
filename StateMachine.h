@@ -8,6 +8,6 @@ public:
     vector<State *> start_states;
     vector<State *> accept_states;
     vector<State *> reject_states;
-
+    vector<Transition > transitions;
 };
 #endif
