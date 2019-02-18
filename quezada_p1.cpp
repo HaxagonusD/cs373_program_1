@@ -66,9 +66,9 @@ vector<State *> justDoit(int x, char ch, StateMachine st){
             }
             // cout << "----------------------" << endl;
         }
-        for(int z = 0; z < temp.size(); z++){
-            cout << temp.at(z)->name << " ";
-        } cout << endl;
+        // for(int z = 0; z < temp.size(); z++){
+        //     cout << temp.at(z)->name << " ";
+        // } cout << endl;
         return temp;
 
 }
@@ -173,13 +173,7 @@ int main(int argc, char *argv[]){
 
 
     for(int i = 0; i < inputStringSize; i++){ // character input string
-
-
-
-
-
         constructedMachine.progression.push_back(justDoit(i,inputString[i],constructedMachine));
-
     }
     for(int i = 0; i < constructedMachine.progression.back().size(); i++){
         bool itsIn = false;
@@ -220,7 +214,7 @@ int main(int argc, char *argv[]){
         cout << endl;
     }
     else {
-        cout << " reject ";
+        cout << "reject ";
 
         for(int i = 0; i < constructedMachine.output.size(); i++){
 
@@ -246,14 +240,14 @@ int main(int argc, char *argv[]){
     // }
 
 
-    for(int i = 0; i < constructedMachine.all_states.size(); i++){
-        cout << constructedMachine.all_states.at(i)->name << ": transitions: "<< endl;
-        for(int j =0; j < constructedMachine.all_states.at(i)->transitions.size(); j++){
-            cout << constructedMachine.all_states.at(i)->transitions.at(j)->currentName << " ";
-            cout << constructedMachine.all_states.at(i)->transitions.at(j)->symbol << " ";
-            cout << constructedMachine.all_states.at(i)->transitions.at(j)->nextName << endl;
-        }
-    }
+    // for(int i = 0; i < constructedMachine.all_states.size(); i++){
+    //     cout << constructedMachine.all_states.at(i)->name << ": transitions: "<< endl;
+    //     for(int j =0; j < constructedMachine.all_states.at(i)->transitions.size(); j++){
+    //         cout << constructedMachine.all_states.at(i)->transitions.at(j)->currentName << " ";
+    //         cout << constructedMachine.all_states.at(i)->transitions.at(j)->symbol << " ";
+    //         cout << constructedMachine.all_states.at(i)->transitions.at(j)->nextName << endl;
+    //     }
+    // }
 
     // for(int i =0; i < constructedMachine.output.size(); i++){
     //     cout << constructedMachine.output.at(i)->name << " ";
