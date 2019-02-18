@@ -33,6 +33,45 @@ void add_trantions(StateMachine * statemachine){
     }
 }
 
+vector<State *> justDoit(int x, char ch, StateMachine st){
+    vector<State *> temp;
+
+
+
+    // for(int x = 0; x < constructedMachine.progression.back().size(); x++){
+    //     cout << constructedMachine.progression.back().at(x)->name << " ";
+    // } cout << endl;
+
+        for(int k = 0; k < st.progression.at(x).size(); k++){ //state pointer in vector of state pointer
+
+            for(int l = 0; l <st.progression.at(x).at(k)->transitions.size(); l++){ // transition in state
+            // cout << "... "<< constructedMachine.progression.at(j).at(k)->transitions.at(l)->currentName << " ";
+            // cout << constructedMachine.progression.at(j).at(k)->transitions.at(l)->symbol << " ";
+            // cout << constructedMachine.progression.at(j).at(k)->transitions.at(l)->nextName << endl;
+
+                if(st.progression.at(x).at(k)->transitions.at(l)->symbol.compare(string(1, ch)) == 0){
+
+                    for(int m = 0; m < st.all_states.size(); m++){
+                        if(st.progression.at(x).at(k)->transitions.at(l)->nextName == st.all_states.at(m)->name){
+
+                                // cout << constructedMachine.progression.at(j).at(k)->name << endl;
+                                temp.push_back(st.all_states.at(m));
+
+
+
+                        }
+
+                    }
+                }
+            }
+            // cout << "----------------------" << endl;
+        }
+        for(int z = 0; z < temp.size(); z++){
+            cout << temp.at(z)->name << " ";
+        } cout << endl;
+        return temp;
+
+}
 
 int main(int argc, char *argv[]){
 	//gets the name of the file from the commandline
@@ -122,72 +161,40 @@ int main(int argc, char *argv[]){
 		}
     }
 
-//TODO: add all the transitions to their respective states
+
     add_trantions(& constructedMachine);
-    // for(int i = 0; i < constructedMachine.transitions.size(); i++){
-    //     cout << constructedMachine.transitions.at(i)->currentName << " ";
-    //     cout << constructedMachine.transitions.at(i)->symbol << " ";
-    //     cout << constructedMachine.transitions.at(i)->nextName << endl;
-    // }
-    // for(int i = 0; i < constructedMachine.all_states.at(0)->transitions.size(); i++){
-    //     cout << constructedMachine.all_states.at(0)->transitions.at(i)->currentName << " ";
-    //     cout << constructedMachine.all_states.at(0)->transitions.at(i)->symbol << " ";
-    //     cout << constructedMachine.all_states.at(0)->transitions.at(i)->nextName << endl;
-    // }
-    // for(int i = 0; i < constructedMachine.all_states.size(); i++){
-    //     cout << constructedMachine.all_states.at(i)->name << ": transtions:" << endl;
-    //     for(int j = 0; j < constructedMachine.all_states.at(i)->transitions.size(); j++){
-    //         cout << constructedMachine.all_states.at(i)->transitions.at(j)->currentName << " ";
-    //         cout << constructedMachine.all_states.at(i)->transitions.at(j)->symbol << " ";
-    //         cout << constructedMachine.all_states.at(i)->transitions.at(j)->nextName << endl;
-    //     }
-    //
-    // }
-//There probably are some memory leaks before this point in the program but I can't get valgrind to run
+
+    //There probably are some memory leaks before this point in the program but I can't get valgrind to run
 
     string inputString = argv[2];
     int inputStringSize = inputString.length();
     constructedMachine.progression.push_back(constructedMachine.start_states);
-    vector<State *> temp;
+
+
+
     for(int i = 0; i < inputStringSize; i++){ // character input string
-        for(int j = 0; j < constructedMachine.progression.size(); j++){ // Vector of state pointers in progression
-            for(int k = 0; k < constructedMachine.progression.at(j).size(); k++){ //state pointer in vector of state pointer
-                for(int l = 0; l <constructedMachine.progression.at(j).at(k)->transitions.size(); l++){ // transition in state
-                    if(constructedMachine.progression.at(j).at(k)->transitions.at(l)->symbol.compare(string(1, inputString[k])) == 0){
-                        for(int m = 0; m < constructedMachine.all_states.size(); m++){
-                            if(constructedMachine.progression.at(j).at(k)->transitions.at(l)->nextName == constructedMachine.all_states.at(m)->name){
-                                temp.push_back(constructedMachine.all_states.at(m));
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        constructedMachine.progression.push_back(temp);
-        temp.clear();
+
+
+
+
+
+        constructedMachine.progression.push_back(justDoit(i,inputString[i],constructedMachine));
+
     }
     for(int i = 0; i < constructedMachine.progression.back().size(); i++){
         bool itsIn = false;
-
         for(int j = 0; j < constructedMachine.output.size(); j++){
-            /* TODO:
-                if ther state in the last vector progreassion is not in the output
-                put it in the output
-            */
-
             if(constructedMachine.progression.back().at(i)->name == constructedMachine.output.at(j)->name){
                 itsIn =true;
             }
-
         }
         if(!itsIn){
             constructedMachine.output.push_back(constructedMachine.progression.back().at(i));
         }
         // cout << constructedMachine.progression.back().at(i)->name << endl;
+        itsIn =false;
     }
-    // for(int i =0; i < constructedMachine.output.size(); i++){
-    //     cout << constructedMachine.output.at(i)->name;
-    // }
+
     bool accept = false;
     for(int i =0; i < constructedMachine.output.size(); i++){
         for(int j = 0; j < constructedMachine.accept_states.size(); j++){
@@ -239,14 +246,14 @@ int main(int argc, char *argv[]){
     // }
 
 
-    // for(int i = 0; i < constructedMachine.all_states.size(); i++){
-    //     cout << constructedMachine.all_states.at(i)->name << ": transitions: "<< endl;
-    //     for(int j =0; j < constructedMachine.all_states.at(i)->transitions.size(); j++){
-    //         cout << constructedMachine.all_states.at(i)->transitions.at(j)->currentName << " ";
-    //         cout << constructedMachine.all_states.at(i)->transitions.at(j)->symbol << " ";
-    //         cout << constructedMachine.all_states.at(i)->transitions.at(j)->nextName << endl;
-    //     }
-    // }
+    for(int i = 0; i < constructedMachine.all_states.size(); i++){
+        cout << constructedMachine.all_states.at(i)->name << ": transitions: "<< endl;
+        for(int j =0; j < constructedMachine.all_states.at(i)->transitions.size(); j++){
+            cout << constructedMachine.all_states.at(i)->transitions.at(j)->currentName << " ";
+            cout << constructedMachine.all_states.at(i)->transitions.at(j)->symbol << " ";
+            cout << constructedMachine.all_states.at(i)->transitions.at(j)->nextName << endl;
+        }
+    }
 
     // for(int i =0; i < constructedMachine.output.size(); i++){
     //     cout << constructedMachine.output.at(i)->name << " ";
@@ -254,13 +261,16 @@ int main(int argc, char *argv[]){
 
 
 
-    // for(int i =0; i < constructedMachine.progression.back().size(); i++){
-    //     cout << constructedMachine.progression.back().at(i)->name << " ";
-    // } cout << endl;
+    // for(int i = 0; i < constructedMachine.progression.size(); i++){
+    //     cout << i << ": ";
+    //     for(int j = 0; j < constructedMachine.progression.at(i).size(); j++){
+    //         cout << constructedMachine.progression.at(i).at(j)->name << " ";
+    //     } cout <<endl;
+    // }cout << endl;
 
  /*TODO:
     fix the problem
-    where the 6th is not being outputed to the progression vector in statemachine class
+    and input of 11 doesn't prodeuce the right output
 
  */
     someTextFile.close();
